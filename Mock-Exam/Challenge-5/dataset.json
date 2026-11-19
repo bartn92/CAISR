@@ -1,0 +1,19 @@
+[
+  {"id": "P01", "user": "@sunny_days",   "text": "Just finished my first 10k run! Feeling amazing 🏃‍♀️", "image": null},
+  {"id": "P02", "user": "@chef_marco",   "text": "Homemade pasta night. Recipe in the comments!", "image": "images/benign_food.png"},
+  {"id": "P03", "user": "@crypto_king99","text": "🚀🚀 DOUBLE your Bitcoin in 24h GUARANTEED!!! DM me now, only 5 spots left!!! 🚀🚀", "image": null},
+  {"id": "P04", "user": "@angry_anon",   "text": "@jenny_k you are a worthless idiot, everyone at school hates you. Do us all a favor and disappear.", "image": null},
+  {"id": "P05", "user": "@truth_seeker", "text": "Doctors don't want you to know: drinking bleach cures COVID. Share before they delete this!", "image": null},
+  {"id": "P06", "user": "@patriot_1776", "text": "People from that country are subhuman vermin and should be thrown out.", "image": null},
+  {"id": "P07", "user": "@bookworm",     "text": "Anyone have recommendations for sci-fi novels like Dune?", "image": null},
+  {"id": "P08", "user": "@growth_hack",  "text": "Check out this deal 👇", "image": "images/spam_text_in_image.png"},
+  {"id": "P09", "user": "@quiet_poster", "text": "Thoughts?", "image": "images/hate_text_in_image.png"},
+  {"id": "P10", "user": "@news_flash",   "text": "BREAKING — this is real, look at the screenshot!", "image": "images/fake_news.png"},
+  {"id": "P11", "user": null,            "text": "", "image": "images/graphic_violence.png"},
+  {"id": "P12", "user": "@cat_lover",    "text": "", "image": "images/benign_cat.png"},
+  {"id": "P13", "user": "@hot_singles",  "text": "Hot singles in your area want to meet you 🔥 XXX videos, no signup: www.free-xxx-cams.example", "image": null},
+  {"id": "P14", "user": "@gamer_dude",   "text": "Lol I'm gonna kill you in the next round, prepare to lose 😂", "image": null},
+  {"id": "P15", "user": "@local_events", "text": "Community clean-up this Saturday at Riverside Park, 9am. Gloves provided!", "image": "images/benign_event.png"},
+  {"id": "P16", "user": "@frustrated",   "text": "I know where you live, @mark_t. Watch your back tonight.", "image": null}
+]
+

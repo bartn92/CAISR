@@ -1,0 +1,93 @@
+OpenEMR is an open-source, ONC-certified Electronic Health Record (EHR) and medical practice
+management web application used by clinics, hospitals and private practices to manage patient
+care, scheduling, billing and clinical documentation. It stores and processes Protected Health
+Information (PHI) and is subject to HIPAA, HITECH and GDPR-type regulations.
+
+ARCHITECTURE AND TECHNOLOGY
+- Server-side PHP web application (version 7.x) running on Apache or Nginx with PHP-FPM, on Linux,
+  Windows or Docker containers.
+- MySQL/MariaDB relational database holding all patient, clinical, billing, user and audit data.
+- Front end: server-rendered HTML (Smarty/Twig templates), jQuery, Bootstrap and AngularJS components.
+- Module system (Laminas/Zend-based modules and custom modules) that allows third-party extensions
+  to be installed through the admin UI.
+- Documents (scanned records, images, lab PDFs, CCDAs) stored on the server file system
+  (sites/<site>/documents) or in the database, with optional encryption at rest.
+- Multi-site support: one code base can serve several separate practices (sites), each with its own
+  database and configuration.
+- Background services and cron jobs for e-mail/SMS reminders, faxing, claims processing, backups
+  and synchronisation with external services.
+- Typically deployed behind TLS on a hosted server or cloud VM (e.g. AWS), with optional reverse proxy.
+
+USERS AND ROLES
+- Clinical staff: physicians, nurses, front-desk, billing staff, administrators. Access is controlled
+  by role-based access control (phpGACL ACL groups and access controls per section).
+- System administrators manage users, ACLs, global settings, modules, backups and code/config.
+- Patients use a separate Patient Portal to view records, lab results, appointments, messages, forms
+  and payments.
+- Third-party applications and integrations access data through APIs on behalf of users or patients.
+
+AUTHENTICATION AND SESSION MANAGEMENT
+- Username/password login (bcrypt/argon2 password hashing) with optional MFA (TOTP and U2F/WebAuthn).
+- Optional LDAP / Active Directory authentication.
+- PHP session cookies for web sessions; CSRF tokens on forms.
+- Patient Portal has its own credentials and registration/self-sign-up and password-reset flows
+  via e-mail.
+- REST and FHIR APIs secured with OAuth 2.0 / OpenID Connect (authorization code with PKCE, client
+  credentials with JWT for bulk/system access, refresh tokens), SMART on FHIR app launch, dynamic
+  client registration, and scope-based authorisation.
+
+KEY FUNCTIONALITY
+- Patient demographics, insurance, medical history, problems, allergies, medications, immunisations.
+- Encounters and clinical notes, forms, vitals, care plans, clinical decision rules.
+- Appointment scheduling and calendar.
+- Electronic prescribing (integration with external e-Rx services such as Weno/NewCrop) and
+  medication/drug inventory management.
+- Lab orders and results via HL7 v2 interfaces to external laboratories (often over SFTP).
+- Billing and revenue cycle: fee sheets, ICD/CPT coding, X12 837 claims and 835 remittances
+  exchanged with clearinghouses (SFTP), payment posting, statements; optional card payment
+  gateways (e.g. Stripe, Sphere) for patient payments.
+- Clinical document exchange: CCDA generation/import, Direct secure messaging (phiMail).
+- Reporting, clinical quality measures (CQM/eCQM), immunisation and syndromic surveillance
+  reporting to public health registries.
+- Document management: upload/scan of files and images.
+- Messaging, reminders and notifications via e-mail, SMS and fax services.
+- Telehealth module (third-party video service integration).
+- Data export/import, backups (database and documents) including offsite backup.
+
+APIS AND EXTERNAL INTERFACES
+- Standard REST API (/apis/default/api) and FHIR R4 API (/apis/default/fhir) including Bulk FHIR export.
+- Patient Portal API for patient-facing apps.
+- External connections: e-prescribing networks, laboratories (HL7), clearinghouses (X12 via SFTP),
+  payment gateways, e-mail (SMTP), SMS/fax providers, Direct messaging HISP, public health registries,
+  telehealth providers, LDAP directories.
+
+AUDITING AND LOGGING
+- Built-in audit log of user activity and PHI access (ATNA-style audit log, optional tamper-evident
+  checksums), API access logging, and login/failed-login records.
+
+DATA FLOWS
+- Clinicians and staff (browser) <-> OpenEMR web server over HTTPS.
+- Patients (browser/mobile) <-> Patient Portal over HTTPS.
+- Third-party apps <-> OAuth2 authorisation server and REST/FHIR APIs over HTTPS.
+- OpenEMR application <-> MySQL database (local or network connection).
+- OpenEMR application <-> local file system for documents, logs, configuration (sqlconf.php
+  contains database credentials).
+- OpenEMR <-> external services (e-Rx, labs, clearinghouses, payment gateways, SMTP, SMS/fax,
+  Direct HISP, registries) over HTTPS/SFTP/SMTP.
+- Administrators <-> server via SSH and web admin UI (module installation, global settings,
+  backups, upgrades).
+
+TRUST BOUNDARIES
+- Internet <-> web server (staff UI, Patient Portal, APIs).
+- Web application <-> database and file system.
+- OpenEMR <-> third-party integrations and external networks.
+- Between user roles (patient vs staff vs administrator) and between sites in multi-site deployments.
+- Installed third-party modules running with full application privileges.
+
+SECURITY-RELEVANT ASSUMPTIONS AND CONCERNS
+- Large legacy PHP code base with history of SQL injection, XSS, CSRF, path traversal, insecure
+  file upload and authorization bypass vulnerabilities.
+- Setup/upgrade scripts (setup.php, sql_upgrade.php) may remain accessible after installation.
+- Database credentials stored in plain text in configuration files on disk.
+- PHI must remain confidential, accurate and available 24/7 for patient care; ransomware and
+  data breach are primary business risks.
